@@ -1,0 +1,24 @@
+Meeting Minutes 23 Oct 2019
+
+	• When create users, default role will always be tourist.
+	• Contact admin if user want to be local guide and admin will have to modify user type.
+	• When joining tours, you need to make payment and add a transaction record of the payment.
+	• Decided on using java windows application for coding.
+	• After discussion with "client", we decided there will be no approval required after creating tours.
+	• We decided on using file based storage for all the records.
+	• We decided that Admin will be able to add or remove users, tours, reviews.
+	• We decided that local guide can remove tours that they created themselves.
+	• We decided that whenever tours or reviews or users or payments are being added or removed, we will add an entry to transaction/audit for record keeping purposes.
+	
+	
+	
+	
+	
+Meeting Minutes 30 Oct 2019
+
+	• We discussed that Tours page will have the following details saved: Title, Description, Price, Date, Time, Location
+	• We discussed and drew the rough design of the UI (Mockup)
+	• We discussed the priorities on our tasks and what each of us will be doing
+	• We discussed that Payment page will have Credit Card No., Expiry, CVV, Name
+	• We discussed the rough design of the menu page: Create Tours, Tours, My Profile, Manage Users, Add Users
+	• We discussed that Tours page will have a dropdown filter by Location, Date and Time
