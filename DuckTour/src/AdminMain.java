@@ -103,6 +103,5 @@ public class AdminMain {
 	    panel.add(adminMenu, BorderLayout.CENTER);
 	    
 	    JOptionPane.showConfirmDialog(null, panel, "Admin Page", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-
 	}
 }
