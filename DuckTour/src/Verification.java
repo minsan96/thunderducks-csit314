@@ -3,8 +3,8 @@ import java.util.*;
 
 public class Verification {
 
-	public String credfile = "src/textdata/Credentials.txt";
-	public String userInfofile = "src/textdata/UserInfo.txt";
+	public String credfile = "DuckTour/src/textdata/Credentials.txt";
+	public String userInfofile = "DuckTour/src/textdata/UserInfo.txt";
 	public String userLevel;
     
 	//checks credentials for login

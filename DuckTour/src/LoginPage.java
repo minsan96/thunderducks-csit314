@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 
 public class LoginPage{
 	public String userID = "";
-	
+	public String userlevel ="" ;
 	public void showLogin (){
 		
 	    JPanel panel = new JPanel(new BorderLayout(5, 5));
@@ -55,17 +55,22 @@ public class LoginPage{
 	    	System.out.println("true");
 	    	userID = uname;
 	    	String ulevel = verifyuser.getUserLevel();
+	    	userlevel = ulevel;
 	    	//System.out.println(ulevel);
 	    }
 	    else 
 	    {
-	    	System.out.println("false");
+	    	JOptionPane.showMessageDialog(null, "Invalid username or password!");
 	    }
 	    
 	}
 	
 	public String getUsername() {
 		return userID;
+	}
+	
+	public String getUserLevel() {
+		return userlevel;
 	}
 	
 }
