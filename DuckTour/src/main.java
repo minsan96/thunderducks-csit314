@@ -13,17 +13,17 @@ public class main {
 		{
 			AdminMain admMain = new AdminMain();
 			admMain.showAdminMain();
-			System.out.println("User Level" + userlevel);
+			System.out.println("User Level " + userlevel);
 		}
 		
 		if (userlevel.equals("1"))
 		{
-			System.out.println("User Level" + userlevel);
+			System.out.println("User Level " + userlevel);
 		}
 		
 		if (userlevel.equals("2"))
 		{
-			System.out.println("User Level" + userlevel);
+			System.out.println("User Level " + userlevel);
 		}
 		
 	}

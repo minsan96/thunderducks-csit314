@@ -75,16 +75,34 @@ public class Verification {
 				tmp.add(fdata);
 			}
 		}
-        /*
-        int counter = 1;
-		for (String s : tmp)
-		{
-			System.out.println(counter + "." + s);
-			counter++;
-		}
-		*/
-        //tmp = RemoveEmptyLinesAL(tmp);
         Filereader.writeAL(credfile, tmp);
+    }
+
+    public void modUser (String username, String userlevel)
+    {
+    	Openfile Filereader = new Openfile();
+        ArrayList<String> credAL = Filereader.read(credfile);
+        /*
+        for (String fdata : credAL)
+        {
+			String[] creddata = fdata.split(",");
+			if (username.equals(creddata[0])){
+				creddata[2] = userlevel;
+			}
+		}
+        */
+        for (int i = 0; i < credAL.size();i++)
+        {
+        	String tmp = credAL.get(i);
+        	String[] creddata = tmp.split(",");
+        	
+        	if (username.equals(creddata[0])){
+				//creddata[2] = userlevel;
+				credAL.set(i, creddata[0] + "," + creddata[1] + "," + userlevel);
+			}
+        	
+        }
+        Filereader.writeAL(credfile, credAL);
     }
     
     public String getCred()
