@@ -8,8 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class AdminMain {
-
-	
 	
 	public void createUser()
 	{
@@ -66,6 +64,38 @@ public class AdminMain {
 
 	}
 	
+	public void DelUser ()
+	{
+		JPanel panel = new JPanel(new BorderLayout(5, 5));
+	    panel.setPreferredSize(new Dimension(300, 20));
+	    
+	    JPanel label = new JPanel(new GridLayout(0, 1, 2, 2));
+	    label.add(new JLabel("Search for username to delete", SwingConstants.RIGHT));
+	    panel.add(label, BorderLayout.WEST);
+	    
+	    JPanel secPanel = new JPanel(new GridLayout(0, 1, 2, 2));
+	    JTextField username = new JTextField();
+	    secPanel.add(username);
+	    panel.add(secPanel, BorderLayout.CENTER);
+	    
+	    int check = JOptionPane.showConfirmDialog(null, panel, "Delete User", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+	    String uname = username.getText();
+	    if (check == JOptionPane.OK_OPTION)
+	    {
+	    	Verification verify = new Verification();
+		    if (verify.checkusername(uname) && !uname.isEmpty())
+		    {
+		    	verify.deleteUser(uname);
+		    	JOptionPane.showMessageDialog(null, "Deleted user successfully");
+		    }
+		    else 
+		    {
+		    	JOptionPane.showMessageDialog(null, "User not found in database");
+		    }
+	    }
+	    
+	}
+	
 	public void showAdminMain (){
 		
 	    JPanel panel = new JPanel(new BorderLayout(5, 5));
@@ -100,8 +130,17 @@ public class AdminMain {
 	        }
 	    });
 	    
-	    panel.add(adminMenu, BorderLayout.CENTER);
+	    deluserbtn .addActionListener(new ActionListener()
+	    {
+	        public void actionPerformed(ActionEvent e) 
+	        {
+	        	DelUser();
+	        }
+	    });
 	    
-	    JOptionPane.showConfirmDialog(null, panel, "Admin Page", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+	    panel.add(adminMenu, BorderLayout.CENTER);
+	    JOptionPane.showOptionDialog(null, panel, "AdminType", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null);
+	    //JOptionPane.showConfirmDialog(null, panel, "Admin Page", JOptionPane.CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+	    //JOptionPane.showMessageDialog(null, panel, "Admin Page", JOptionPane.PLAIN_MESSAGE);
 	}
 }

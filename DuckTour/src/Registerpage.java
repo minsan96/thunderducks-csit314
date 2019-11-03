@@ -71,7 +71,7 @@ public class Registerpage {
 	    genderbtnPanel.add(femalebtn, gbc);
 	    panel.add(genderbtnPanel, BorderLayout.PAGE_END );
 	    
-	    JOptionPane.showConfirmDialog(null, panel, "Register", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+	    int result = JOptionPane.showConfirmDialog(null, panel, "Register", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 	    
 	    String uname = username.getText();
 	    //System.out.println(uname);
@@ -95,24 +95,35 @@ public class Registerpage {
 	    String priorityLevel = "2";
 	    
 	    Verification verify = new Verification();
-	    if (verify.checkusername(uname) && !uname.isEmpty())
+	    if (result == JOptionPane.OK_OPTION)
 	    {
-	    	JOptionPane.showMessageDialog(null, "Username had been used!");
+		    if (verify.checkusername(uname) && !uname.isEmpty())
+		    {
+		    	JOptionPane.showMessageDialog(null, "Username had been used!");
+		    	showPage();
+		    }
+		    else if (verify.checkusername(uname) == false && !uname.isEmpty() && !pwd.isEmpty()){
+		    	if(birthdate.equals("DD-MM-YYYY e.g 20-04-1965"))
+		    	{
+		    		birthdate = "";
+		    	}
+			    String writeCred = uname + "," + pwd + "," + priorityLevel;
+			    String writeData = uname + "," + pwd + "," + priorityLevel + "," + gender + "," + birthdate + "," + email + "," + contact;
+			    
+			    Openfile fileOperator = new Openfile ();
+			    fileOperator.writeString(verify.getCred(), writeCred);
+			    fileOperator.writeString(verify.getUInfo(), writeData);
+			    JOptionPane.showMessageDialog(null, "Account successfully created!");
+		    }
+		    else {
+		    	JOptionPane.showMessageDialog(null, "Username/Password must not be empty!");
+		    	showPage();
+		    }
 	    }
-	    else if (verify.checkusername(uname) == false && !uname.isEmpty() && !pwd.isEmpty()){
-	    	if(birthdate.equals("DD-MM-YYYY e.g 20-04-1965"))
-	    	{
-	    		birthdate = "";
-	    	}
-		    String writeCred = uname + "," + pwd + "," + priorityLevel;
-		    String writeData = uname + "," + pwd + "," + priorityLevel + "," + gender + "," + birthdate + "," + email + "," + contact;
-		    
-		    Openfile fileOperator = new Openfile ();
-		    fileOperator.writeString(verify.getCred(), writeCred);
-		    fileOperator.writeString(verify.getUInfo(), writeData);
-	    }
-	    else {
-	    	JOptionPane.showMessageDialog(null, "Username/Password must not be empty!");
+	    else if (result == JOptionPane.CANCEL_OPTION)
+	    {
+	    	//System.out.println("cancel");
+	    	//JOptionPane.showMessageDialog(null, "Username/Password must not be empty!");
 	    }
 	}
 }

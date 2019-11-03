@@ -44,7 +44,7 @@ public class LoginPage{
 	    
 	    panel.add(regpanel, BorderLayout.LINE_END);
 	    
-	    JOptionPane.showConfirmDialog(null, panel, "Login", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+	    int result = JOptionPane.showConfirmDialog(null, panel, "Login", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 	    
 	    String uname = username.getText();
 	    String pwd = new String (password.getPassword());
@@ -52,15 +52,20 @@ public class LoginPage{
 	    
 	    if(verifyuser.verifylogin(uname, pwd)) 
 	    {
-	    	System.out.println("true");
+	    	//System.out.println("true");
 	    	userID = uname;
 	    	String ulevel = verifyuser.getUserLevel();
 	    	userlevel = ulevel;
 	    	//System.out.println(ulevel);
 	    }
+	    else if (result == JOptionPane.CANCEL_OPTION || result == JOptionPane.CLOSED_OPTION)
+	    {
+	    	System.out.println("Program closed");
+	    }
 	    else 
 	    {
 	    	JOptionPane.showMessageDialog(null, "Invalid username or password!");
+	    	showLogin();
 	    }
 	    
 	}

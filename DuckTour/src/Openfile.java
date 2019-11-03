@@ -27,7 +27,10 @@ public class Openfile {
 			PrintWriter writer = new PrintWriter(oFile, "UTF-8");
 			Iterator i = filedata.iterator();
 			while (i.hasNext()) {
+				//String tmp = i.next().toString();
+				//if (!tmp.isEmpty()) {
 				writer.println(i.next());
+				//}
 		}
 		writer.close();
 		} catch (Exception e) {
@@ -41,7 +44,7 @@ public class Openfile {
 		
 		try{
 			PrintWriter out = new PrintWriter(new FileWriter(file, true));
-		    out.append("\n"+data);
+		    out.append(data+"\n");
 		    out.close();
 		    } catch(IOException e){
 		    	System.out.println("File not found");
