@@ -5,7 +5,8 @@ public class Verification {
 
 	public String credfile = "DuckTour/src/textdata/Credentials.txt";
 	public String userInfofile = "DuckTour/src/textdata/UserInfo.txt";
-	public String credHeader = "Username:Password:PriorityLevel";
+	public String tourInfofile = "DuckTour/src/textdata/TourInfo.txt";
+	//public String credHeader = "Username:Password:PriorityLevel";
 	public String userLevel;
 	
 	//checks credentials for login
@@ -52,6 +53,25 @@ public class Verification {
         {
 			String[] creddata = fdata.split(",");
 			if (username.equals(creddata[0])){
+				result = true;
+				break;
+			}
+			else {
+				result = false;
+			}
+		}
+    	return result;
+    }
+    
+    public boolean checktourname (String tourname) {
+    	boolean result = false;
+    	Openfile Filereader = new Openfile();
+        ArrayList<String> tourAL = Filereader.read(tourInfofile);
+        
+        for (String fdata : tourAL)
+        {
+			String[] tourdata = fdata.split(",");
+			if (tourname.equals(tourdata[0])){
 				result = true;
 				break;
 			}
@@ -113,6 +133,11 @@ public class Verification {
     public String getUInfo()
     {
     	return userInfofile;
+    }
+    
+    public String getTInfo()
+    {
+    	return tourInfofile;
     }
     
 }

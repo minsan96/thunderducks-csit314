@@ -56,6 +56,7 @@ public class AdminMain {
 		    Openfile fileOperator = new Openfile ();
 		    fileOperator.writeString(verify.getCred(), writeCred);
 		    //fileOperator.writeString(verify.getUInfo(), writeData);
+		    JOptionPane.showMessageDialog(null, "User successfully created");
 	    }
 	    else 
 	    {
@@ -189,7 +190,7 @@ public class AdminMain {
 	    });
 	    
 	    panel.add(adminMenu, BorderLayout.CENTER);
-	    int check = JOptionPane.showOptionDialog(null, panel, "AdminType", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null);
+	    int check = JOptionPane.showOptionDialog(null, panel, "Admin", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null);
 	    //JOptionPane.showConfirmDialog(null, panel, "Admin Page", JOptionPane.CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 	    //JOptionPane.showMessageDialog(null, panel, "Admin Page", JOptionPane.PLAIN_MESSAGE);
 	    /*

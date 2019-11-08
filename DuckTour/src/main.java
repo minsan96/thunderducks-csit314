@@ -19,6 +19,9 @@ public class main {
 		if (userlevel.equals("1"))
 		{
 			System.out.println("User Level " + userlevel);
+			LocalMain locMain = new LocalMain();
+			locMain.showMain();
+			
 		}
 		
 		if (userlevel.equals("2"))
