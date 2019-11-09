@@ -23,3 +23,9 @@ Meeting Minutes 30 Oct 2019
 	  additional info that will be stored is username of tourist who signs up to pay for the tour and tour name
 	• We discussed the rough design of the menu page: Create Tours, Tours, My Profile, Manage Users, Add Users
 	• We discussed that Tours page will have a dropdown filter by Location, Date and Time
+
+Meeting Minutes 09 Nov 2019 
+
+	• More in-depth discussion on items discussed during the last meeting – especially on coding and diagrams  
+	• The in-depth discussions include Payment/Sign Up page, Tour listing page, possibility on whether to put maximum limit to number of people who can sign up for the tour 
+	• We decided that the tour name will be unique and are discussing if we should maintain a tour ID since we are doing file based storage 
