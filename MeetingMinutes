@@ -30,3 +30,9 @@ Meeting Minutes 09 Nov 2019
 	• The in-depth discussions include Payment/Sign Up page, Tour listing page, possibility on whether to put maximum limit to number of people who can sign up for the tour 
 	• We decided that the tour name will be unique and are discussing if we should maintain a tour ID since we are doing file based storage 
 	• We discussed on how can tourists give rating to local tours and how can local tours give rating to tourists 
+	• We discussed on how can tourists give rating to local tours and how can local tours give rating to tourists 
+	• When local guide is deleting tour, we will be checking if the tour is owned by this local guide before deleting the tour 
+	• When admin is deleting tour, they can just delete it without any checking 
+	• Payment records will be just a table that Local guides can see which tourists signed up and paid 
+	• This will be searched using tour name. 
+	• Tourists in their Profile page will have a table showing tour names that they have signed up for 
