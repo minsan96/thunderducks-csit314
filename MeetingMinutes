@@ -19,6 +19,7 @@ Meeting Minutes 30 Oct 2019
 	• We discussed that Tours page will have the following details saved: Title, Description, Price, Date, Time, Location
 	• We discussed and drew the rough design of the UI (Mockup)
 	• We discussed the priorities on our tasks and what each of us will be doing
-	• We discussed that Payment page will have Credit Card No., Expiry, CVV, Name
+	• We discussed that Payment page will have Credit Card No., Expiry, CVV, Name, 
+	  additional info that will be stored is username of tourist who signs up to pay for the tour and tour name
 	• We discussed the rough design of the menu page: Create Tours, Tours, My Profile, Manage Users, Add Users
 	• We discussed that Tours page will have a dropdown filter by Location, Date and Time
