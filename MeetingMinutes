@@ -29,3 +29,4 @@ Meeting Minutes 09 Nov 2019
 	• More in-depth discussion on items discussed during the last meeting – especially on coding and diagrams  
 	• The in-depth discussions include Payment/Sign Up page, Tour listing page, possibility on whether to put maximum limit to number of people who can sign up for the tour 
 	• We decided that the tour name will be unique and are discussing if we should maintain a tour ID since we are doing file based storage 
+	• We discussed on how can tourists give rating to local tours and how can local tours give rating to tourists 
