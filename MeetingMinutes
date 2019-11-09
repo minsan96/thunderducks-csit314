@@ -10,9 +10,7 @@ Meeting Minutes 23 Oct 2019
 	• We decided that local guide can remove tours that they created themselves.
 	• We decided that whenever tours or reviews or users or payments are being added or removed, we will add an entry to transaction/audit for record keeping purposes.
 	
-	
-	
-	
+			
 	
 Meeting Minutes 30 Oct 2019
 
@@ -24,6 +22,8 @@ Meeting Minutes 30 Oct 2019
 	• We discussed the rough design of the menu page: Create Tours, Tours, My Profile, Manage Users, Add Users
 	• We discussed that Tours page will have a dropdown filter by Location, Date and Time
 
+
+
 Meeting Minutes 09 Nov 2019 
 
 	• More in-depth discussion on items discussed during the last meeting – especially on coding and diagrams  
@@ -34,5 +34,5 @@ Meeting Minutes 09 Nov 2019
 	• When local guide is deleting tour, we will be checking if the tour is owned by this local guide before deleting the tour 
 	• When admin is deleting tour, they can just delete it without any checking 
 	• Payment records will be just a table that Local guides can see which tourists signed up and paid 
-	• This will be searched using tour name. 
+	  This will be searched using tour name. 
 	• Tourists in their Profile page will have a table showing tour names that they have signed up for 
