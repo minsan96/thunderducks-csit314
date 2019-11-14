@@ -36,3 +36,12 @@ Meeting Minutes 09 Nov 2019
 	• Payment records will be just a table that Local guides can see which tourists signed up and paid 
 	  This will be searched using tour name. 
 	• Tourists in their Profile page will have a table showing tour names that they have signed up for 
+	
+
+Meeting Minutes 13 Nov 2019
+
+	• Both tourist and local guide can search and view ratings
+	• Use case diagram, each bubble equals to each user description
+	• Sequence diagram is ok to spilt each flow for each user into individual diagram
+	• Data persistency is how the file base system interact with the program. All files should be isolated from each other so it wont cause errors to other features
+	• BCE diagram can draw for each individual feature first, but will need to link together later
