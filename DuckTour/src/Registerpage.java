@@ -107,7 +107,7 @@ public class Registerpage {
 		    	{
 		    		birthdate = "";
 		    	}
-			    String writeCred = uname + "," + pwd + "," + priorityLevel;
+			    String writeCred = uname + "," + pwd + "," + priorityLevel + ",5";
 			    String writeData = uname + "," + pwd + "," + priorityLevel + "," + gender + "," + birthdate + "," + email + "," + contact;
 			    
 			    Openfile fileOperator = new Openfile ();

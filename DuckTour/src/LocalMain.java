@@ -196,6 +196,108 @@ public class LocalMain {
 	    }
 	}
 	
+	public void viewPayment() 
+	{
+		
+	}
+	
+	public void rateOthers()
+	{
+		JPanel panel = new JPanel(new BorderLayout(5, 5));
+	    panel.setPreferredSize(new Dimension(300, 20));
+	    
+	    JPanel label = new JPanel(new GridLayout(0, 1, 2, 2));
+	    label.add(new JLabel("Search username", SwingConstants.RIGHT));
+	    panel.add(label, BorderLayout.WEST);
+	    
+	    JPanel rateOtherMenu = new JPanel(new GridLayout(0, 1, 2, 2));
+	    JTextField otherusername = new JTextField();
+	    rateOtherMenu.add(otherusername);
+	    panel.add(rateOtherMenu, BorderLayout.CENTER);
+	    
+	    int check = JOptionPane.showConfirmDialog(null, panel, "Rate other users", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+	    
+	    String OtherUname = otherusername.getText();
+	    
+	    if (check == JOptionPane.OK_OPTION)
+	    {
+	    	if (OtherUname.equals(loggedinUser))
+	    	{
+	    		JOptionPane.showMessageDialog(null, "You cannot give ratings to yourself!");
+	    	}
+	    	
+	    	else 
+	    	{
+	    		Verification verify = new Verification();
+	    		String otheruserinfo = verify.checkOtherUname(OtherUname);
+	    		
+	    		if (!otheruserinfo.equals("") || !otheruserinfo.isEmpty())
+	    		{
+	    			String[] userdata = otheruserinfo.split(",");
+	    			
+	    			JPanel newpanel = new JPanel(new BorderLayout(5, 5));
+	    			newpanel.setPreferredSize(new Dimension(300, 90));
+	    		    
+	    		    JPanel newlabel = new JPanel(new GridLayout(0, 1, 2, 2));
+	    		    newlabel.add(new JLabel("Username", SwingConstants.RIGHT));
+	    		    newlabel.add(new JLabel("Current Rating", SwingConstants.RIGHT));
+	    		    newlabel.add(new JLabel("Your Rating", SwingConstants.RIGHT));
+	    		    //newlabel.add(new JLabel("1 is the worst rating and 5 is the best rating", SwingConstants.RIGHT));
+	    		    newpanel.add(newlabel, BorderLayout.WEST);
+	    		    
+	    		    
+	    		    
+	    		    JPanel OtherUserInfoMenu = new JPanel(new GridLayout(0, 1, 2, 2));
+	    		    JTextField OTHusername = new JTextField(userdata[0]);
+	    		    OTHusername.setEditable(false);
+	    		    OtherUserInfoMenu.add(OTHusername);
+	    		    JTextField OTHuserrating = new JTextField(userdata[3]);
+	    		    OTHuserrating.setEditable(false);
+	    		    OtherUserInfoMenu.add(OTHuserrating);
+	    		    
+	    		    String[] ratinglevel = {"1" , "2", "3", "4", "5"};
+	    		    final JComboBox<String> RL = new JComboBox<String>(ratinglevel);
+	    		    OtherUserInfoMenu.add(RL);
+	    		    
+	    		    newpanel.add(OtherUserInfoMenu, BorderLayout.CENTER);
+	    		    
+	    		    JPanel endlabel = new JPanel(new GridLayout(0, 1, 2, 2));
+	    		    endlabel.add(new JLabel("1 is the worst rating and 5 is the best rating", SwingConstants.CENTER));
+	    		    newpanel.add(endlabel, BorderLayout.PAGE_END);
+	    		    
+	    		    int check1 = JOptionPane.showConfirmDialog(null, newpanel, "Rate other users", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+	    		    
+	    		    String nrating = RL.getSelectedItem().toString();
+	    		    
+	    		    if (check1 == JOptionPane.OK_OPTION)
+	    		    {
+	    		    	if (!nrating.isEmpty() || !nrating.equals(""))
+	    		    	{
+		    		    	float currRating = Float.valueOf(userdata[3]);
+		    		    	float nRating = Float.valueOf(nrating);
+		    		    	float avgRating = (currRating + nRating) / 2;
+		    		    	
+		    		    	String writedata = userdata[0] + "," + userdata[1] + "," + userdata[2] + "," + String.valueOf(avgRating);
+		    		    	
+		    		    	verify.rateUser(otheruserinfo, writedata);
+		    		    	
+		    		    	JOptionPane.showMessageDialog(null, "Successfully rated the user! The user's rating is now: " + String.valueOf(avgRating));
+	    		    	}
+	    		    	else
+	    		    	{
+	    		    		JOptionPane.showMessageDialog(null, "You must provide a rating!");
+	    		    	}
+	    		    }
+	    			
+	    		}
+	    		else 
+	    		{
+	    			JOptionPane.showMessageDialog(null, "Invalid username!");
+	    		}
+	    	}
+	    }
+	}
+	
 	public void showMain (String loginusername)
 	{
 		loggedinUser = loginusername;
@@ -266,7 +368,7 @@ public class LocalMain {
 	    {
 	        public void actionPerformed(ActionEvent e) 
 	        {
-	        	//modUser();
+	        	rateOthers();
 	        }
 	    });
 	    

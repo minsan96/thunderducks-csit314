@@ -218,6 +218,43 @@ public class Verification {
         Filereader.writeAL(tourInfofile, tourAL);
     }
     
+    public String checkOtherUname(String username)
+    {
+    	String result = "";
+    	Openfile Filereader = new Openfile();
+        ArrayList<String> tourAL = Filereader.read(credfile);
+        
+        for (String fdata : tourAL)
+        {
+			String[] creddata = fdata.split(",");
+			
+			if (username.equals(creddata[0]))
+			{
+				result = fdata;
+			}
+
+		}
+    	return result;
+    }
+    
+    public void rateUser(String olddata, String newdata)
+    {
+    	Openfile Filereader = new Openfile();
+        ArrayList<String> credAL = Filereader.read(credfile);
+
+        for (int i = 0; i < credAL.size(); i++)
+        {
+        	String tmp = credAL.get(i);
+        	
+        	if (tmp.equals(olddata))
+        	{
+        		credAL.set(i, newdata);
+        	}
+        	
+        }
+        Filereader.writeAL(credfile, credAL);
+    }
+    
     public String getCred()
     {
     	return credfile;

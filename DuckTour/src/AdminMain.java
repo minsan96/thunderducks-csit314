@@ -51,6 +51,11 @@ public class AdminMain {
 	    else if (verify.checkusername(uname) == false && !uname.isEmpty() && !pwd.isEmpty())
 	    {
 		    String writeCred = uname + "," + pwd + "," + ulevel;
+		    
+		    if (ulevel.equals("1") || ulevel.equals("2") )
+		    {
+		    	writeCred = uname + "," + pwd + "," + ulevel + ",5";
+		    }
 		    //String writeData = uname + "," + pwd + "," + priorityLevel + "," + gender + "," + birthdate + "," + email + "," + contact;
 		    
 		    Openfile fileOperator = new Openfile ();
