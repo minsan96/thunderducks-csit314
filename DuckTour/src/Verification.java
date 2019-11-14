@@ -102,15 +102,7 @@ public class Verification {
     {
     	Openfile Filereader = new Openfile();
         ArrayList<String> credAL = Filereader.read(credfile);
-        /*
-        for (String fdata : credAL)
-        {
-			String[] creddata = fdata.split(",");
-			if (username.equals(creddata[0])){
-				creddata[2] = userlevel;
-			}
-		}
-        */
+
         for (int i = 0; i < credAL.size();i++)
         {
         	String tmp = credAL.get(i);
@@ -123,6 +115,107 @@ public class Verification {
         	
         }
         Filereader.writeAL(credfile, credAL);
+    }
+    
+    public boolean deletetour(String username, String tname) 
+    {
+    	boolean result = false;
+    	Openfile Filereader = new Openfile();
+        ArrayList<String> tourAL = Filereader.read(tourInfofile);
+        ArrayList<String> tmp = new ArrayList<String>();
+        
+        for (String fdata : tourAL)
+        {
+			String[] creddata = fdata.split(",");
+			
+			if (username.equals(creddata[0]) && tname.equals(creddata[1]))
+			{
+				result = true;
+			}
+			
+			else
+			{
+				tmp.add(fdata);
+			}
+
+		}
+        Filereader.writeAL(tourInfofile, tmp);
+    	
+    	return result;
+    }
+    
+    public boolean deletetour(String tname) 
+    {
+    	boolean result = false;
+    	Openfile Filereader = new Openfile();
+        ArrayList<String> tourAL = Filereader.read(tourInfofile);
+        ArrayList<String> tmp = new ArrayList<String>();
+        
+        for (String fdata : tourAL)
+        {
+			String[] tourdata = fdata.split(",");
+			if(tourdata.length > 1 )
+			{
+				if (tname.equals(tourdata[1]))
+				{
+					result = true;
+				}
+				else
+				{
+					tmp.add(fdata);
+				}
+			}
+				else
+				{
+					tmp.add(fdata);
+				}
+
+		}
+        
+        Filereader.writeAL(tourInfofile, tmp);
+        
+        return result;
+    }
+    
+    public ArrayList<String> checkTourForMod(String username, String tname)
+    {
+    	boolean result = false;
+    	Openfile Filereader = new Openfile();
+        ArrayList<String> tourAL = Filereader.read(tourInfofile);
+        ArrayList<String> tmp = new ArrayList<String>();
+        
+        for (String fdata : tourAL)
+        {
+			String[] creddata = fdata.split(",");
+			
+			if (username.equals(creddata[0]) && tname.equals(creddata[1]))
+			{
+				tmp.add(fdata);
+			}
+
+		}
+    	return tmp;
+    }
+    
+    public void updateTour(String tname, String data)
+    {
+    	Openfile Filereader = new Openfile();
+        ArrayList<String> tourAL = Filereader.read(tourInfofile);
+
+        for (int i = 0; i < tourAL.size(); i++)
+        {
+        	String tmp = tourAL.get(i);
+        	String[] tourdata = tmp.split(",");
+        	if(tourdata.length > 1 )
+        	{
+	        	if (tname.equals(tourdata[1])){
+	        		System.out.println(i+"here ");
+	        		tourAL.set(i, data);
+				}
+        	}
+        	
+        }
+        Filereader.writeAL(tourInfofile, tourAL);
     }
     
     public String getCred()

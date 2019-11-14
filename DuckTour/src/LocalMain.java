@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 
 public class LocalMain {
 
+	String loggedinUser = "";
+	
 	public void createTour()
 	{
 		JPanel panel = new JPanel(new BorderLayout(5, 5));
@@ -64,8 +66,8 @@ public class LocalMain {
 		    }
 		    else if (verify.checktourname(tname) == false)
 		    {
-			    String writeData = tname + "," + ctry + "," + loc + "," + tdesc + "," + tdate + "," + ttime + "," + tprice;
-			    //String writeData = uname + "," + pwd + "," + priorityLevel + "," + gender + "," + birthdate + "," + email + "," + contact;
+			    String writeData = loggedinUser + "," + tname + "," + ctry + "," + loc + "," + tdesc + "," + tdate + "," + ttime + "," + tprice;
+			    //String writeData = loggedinUser + "," + uname + "," + pwd + "," + priorityLevel + "," + gender + "," + birthdate + "," + email + "," + contact;
 			    
 			    Openfile fileOperator = new Openfile ();
 			    fileOperator.writeString(verify.getTInfo(), writeData);
@@ -79,10 +81,127 @@ public class LocalMain {
 
 	}
 	
-	public void showMain ()
+	public void delTour() 
 	{
-	    JPanel panel = new JPanel(new BorderLayout(5, 5));
-	    panel.setPreferredSize(new Dimension(300, 70));
+		JPanel panel = new JPanel(new BorderLayout(5, 5));
+	    panel.setPreferredSize(new Dimension(300, 20));
+	    
+	    JPanel label = new JPanel(new GridLayout(0, 1, 2, 2));
+	    label.add(new JLabel("Search Tour Name", SwingConstants.RIGHT));
+	    panel.add(label, BorderLayout.WEST);
+	    
+	    JPanel delTourMenu = new JPanel(new GridLayout(0, 1, 2, 2));
+	    JTextField tourname = new JTextField();
+	    delTourMenu.add(tourname);
+	    panel.add(delTourMenu, BorderLayout.CENTER);
+	    
+	    int check = JOptionPane.showConfirmDialog(null, panel, "Delete Tour", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+	    
+	    String tname = tourname.getText();
+	    
+	    if (check == JOptionPane.OK_OPTION)
+	    {
+	    	Verification verify = new Verification();
+	    	boolean result = verify.deletetour(loggedinUser, tname);
+	    	
+	    	if (result)
+	    	{
+		    	JOptionPane.showMessageDialog(null, "Tour successfully deleted!");
+		    }
+		    else 
+		    {
+		    	JOptionPane.showMessageDialog(null, "You do not have the right to delete the tour! / Invalid tour name!");
+		    }
+	    	
+	    }
+	    
+	}
+	
+	public void modTour() 
+	{
+		JPanel panel = new JPanel(new BorderLayout(5, 5));
+	    panel.setPreferredSize(new Dimension(300, 20));
+	    
+	    JPanel label = new JPanel(new GridLayout(0, 1, 2, 2));
+	    label.add(new JLabel("Search Tour Name", SwingConstants.RIGHT));
+	    panel.add(label, BorderLayout.WEST);
+	    
+	    JPanel modTourMenu = new JPanel(new GridLayout(0, 1, 2, 2));
+	    JTextField tourname = new JTextField();
+	    modTourMenu.add(tourname);
+	    panel.add(modTourMenu, BorderLayout.CENTER);
+	    
+	    int check = JOptionPane.showConfirmDialog(null, panel, "Search for tour to modify", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+	    
+	    String tname = tourname.getText();
+	    
+	    if (check == JOptionPane.OK_OPTION)
+	    {
+	    	Verification verify = new Verification();
+	    	ArrayList<String> result = verify.checkTourForMod(loggedinUser, tname);
+	    	
+	    	if (!result.isEmpty())
+	    	{
+	    		String currentval = result.get(0);
+	    		String[] splitval = currentval.split(",");
+	    		
+	    		JPanel newpanel = new JPanel(new BorderLayout(5, 5));
+	    	    panel.setPreferredSize(new Dimension(300, 130));
+	    	    
+	    	    JPanel newlabel = new JPanel(new GridLayout(0, 1, 2, 2));
+	    	    newlabel.add(new JLabel("Country", SwingConstants.RIGHT));
+	    	    newlabel.add(new JLabel("Location", SwingConstants.RIGHT));
+	    	    newlabel.add(new JLabel("Enter Tour Description", SwingConstants.RIGHT));
+	    	    newlabel.add(new JLabel("Date (DD-MM-YYYY)", SwingConstants.RIGHT));
+	    	    newlabel.add(new JLabel("Time (HHmmH, e.g 1930H)", SwingConstants.RIGHT));
+	    	    newlabel.add(new JLabel("Price $", SwingConstants.RIGHT));
+	    	    newpanel.add(newlabel, BorderLayout.WEST);
+	    	    
+	    	    JPanel updTourMenu = new JPanel(new GridLayout(0, 1, 2, 2));
+	    	    JTextField country = new JTextField(splitval[2]);
+	    	    updTourMenu.add(country);
+	    	    JTextField location = new JTextField(splitval[3]);
+	    	    updTourMenu.add(location);
+	    	    JTextField tourdesc = new JTextField(splitval[4]);
+	    	    updTourMenu.add(tourdesc);
+	    	    JTextField date = new JTextField(splitval[5]);
+	    	    updTourMenu.add(date);
+	    	    JTextField time = new JTextField(splitval[6]);
+	    	    updTourMenu.add(time);
+	    	    JTextField price = new JTextField(splitval[7]);
+	    	    updTourMenu.add(price);
+	    	    newpanel.add(updTourMenu, BorderLayout.CENTER);
+	    	    
+	    	    int check1 = JOptionPane.showConfirmDialog(null, newpanel, "Modify Tour", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+	    	    if (check1 == JOptionPane.OK_OPTION)
+	    	    {
+		    	    String ctry = country.getText();
+		    	    String loc = location.getText();
+		    	    String tdesc = tourdesc.getText();
+		    	    String tdate = date.getText();
+		    	    String ttime = time.getText();
+		    	    String tprice = price.getText();
+		    	    
+		    	    String writeData = loggedinUser + "," + tname + "," + ctry + "," + loc + "," + tdesc + "," + tdate + "," + ttime + "," + tprice;
+		    	    
+		    		verify.updateTour(tname, writeData);
+		    	    JOptionPane.showMessageDialog(null, "Tour successfully updated!");
+	    	    }
+		    }
+		    else 
+		    {
+		    	JOptionPane.showMessageDialog(null, "You do not have the right to update the tour! / Invalid tour name!");
+		    }
+	    	
+	    }
+	}
+	
+	public void showMain (String loginusername)
+	{
+		loggedinUser = loginusername;
+		
+		JPanel panel = new JPanel(new BorderLayout(5, 5));
+	    panel.setPreferredSize(new Dimension(300, 90));
 
 	    JPanel leftlabel = new JPanel(new GridLayout(0, 1, 2, 2));
 	    leftlabel.add(new JLabel("          ", SwingConstants.RIGHT));
@@ -108,6 +227,8 @@ public class LocalMain {
 	    localMenu.add(modtourbtn);
 	    JButton viewpaymentbtn = new JButton("View Payment Records");
 	    localMenu.add(viewpaymentbtn);
+	    JButton rateuserstbtn = new JButton("Rate Others");
+	    localMenu.add(rateuserstbtn);
 	    
 	    createtourbtn.addActionListener(new ActionListener()
 	    {
@@ -117,15 +238,31 @@ public class LocalMain {
 	        }
 	    });
 	    
-	    modtourbtn .addActionListener(new ActionListener()
+	    deltourbtn.addActionListener(new ActionListener()
 	    {
 	        public void actionPerformed(ActionEvent e) 
 	        {
-	        	//DelUser();
+	        	delTour();
 	        }
 	    });
 	    
-	    modtourbtn .addActionListener(new ActionListener()
+	    modtourbtn.addActionListener(new ActionListener()
+	    {
+	        public void actionPerformed(ActionEvent e) 
+	        {
+	        	modTour();
+	        }
+	    });
+	    
+	    viewpaymentbtn.addActionListener(new ActionListener()
+	    {
+	        public void actionPerformed(ActionEvent e) 
+	        {
+	        	//modUser();
+	        }
+	    });
+	    
+	    rateuserstbtn.addActionListener(new ActionListener()
 	    {
 	        public void actionPerformed(ActionEvent e) 
 	        {
@@ -135,8 +272,7 @@ public class LocalMain {
 	    
 	    panel.add(localMenu, BorderLayout.CENTER);
 	    int check = JOptionPane.showOptionDialog(null, panel, "Local Guide", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null);
-	    //JOptionPane.showConfirmDialog(null, panel, "Admin Page", JOptionPane.CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-	    //JOptionPane.showMessageDialog(null, panel, "Admin Page", JOptionPane.PLAIN_MESSAGE);
+
 	    /*
 	    if (check == JOptionPane.CLOSED_OPTION)
 	    {

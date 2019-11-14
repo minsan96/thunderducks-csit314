@@ -1,2 +1,2 @@
-Tourname:Country:Location:TourDescription:Date:Time:Price
-asd,asd,asd,asd,asd,asd,asd
+LocalGuideUsername:Tourname:Country:Location:TourDescription:Date:Time:Price
+b1,bsadasdas,b1,b1,b1,b1,b1,asdasd

@@ -20,7 +20,7 @@ public class main {
 		{
 			System.out.println("User Level " + userlevel);
 			LocalMain locMain = new LocalMain();
-			locMain.showMain();
+			locMain.showMain(username);
 			
 		}
 		

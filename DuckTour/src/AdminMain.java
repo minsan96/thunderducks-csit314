@@ -135,6 +135,42 @@ public class AdminMain {
 	    }
 	}
 	
+	public void delTour() 
+	{
+		JPanel panel = new JPanel(new BorderLayout(5, 5));
+	    panel.setPreferredSize(new Dimension(300, 20));
+	    
+	    JPanel label = new JPanel(new GridLayout(0, 1, 2, 2));
+	    label.add(new JLabel("Search Tour Name", SwingConstants.RIGHT));
+	    panel.add(label, BorderLayout.WEST);
+	    
+	    JPanel delTourMenu = new JPanel(new GridLayout(0, 1, 2, 2));
+	    JTextField tourname = new JTextField();
+	    delTourMenu.add(tourname);
+	    panel.add(delTourMenu, BorderLayout.CENTER);
+	    
+	    int check = JOptionPane.showConfirmDialog(null, panel, "Delete Tour", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+	    
+	    String tname = tourname.getText();
+	    
+	    if (check == JOptionPane.OK_OPTION)
+	    {
+	    	Verification verify = new Verification();
+	    	boolean result = verify.deletetour(tname);
+	    	
+	    	if (result)
+	    	{
+		    	JOptionPane.showMessageDialog(null, "Tour successfully deleted!");
+		    }
+		    else 
+		    {
+		    	JOptionPane.showMessageDialog(null, "Invalid tour name!");
+		    }
+	    	
+	    }
+	    
+	}
+	
 	public void showAdminMain ()
 	{
 	    JPanel panel = new JPanel(new BorderLayout(5, 5));
@@ -173,7 +209,7 @@ public class AdminMain {
 	        }
 	    });
 	    
-	    deluserbtn .addActionListener(new ActionListener()
+	    deluserbtn.addActionListener(new ActionListener()
 	    {
 	        public void actionPerformed(ActionEvent e) 
 	        {
@@ -181,11 +217,19 @@ public class AdminMain {
 	        }
 	    });
 	    
-	    moduserbtn .addActionListener(new ActionListener()
+	    moduserbtn.addActionListener(new ActionListener()
 	    {
 	        public void actionPerformed(ActionEvent e) 
 	        {
 	        	modUser();
+	        }
+	    });
+	    
+	    deltourbtn.addActionListener(new ActionListener()
+	    {
+	        public void actionPerformed(ActionEvent e) 
+	        {
+	        	delTour();
 	        }
 	    });
 	    
