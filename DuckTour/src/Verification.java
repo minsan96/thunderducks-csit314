@@ -6,6 +6,8 @@ public class Verification {
 	public String credfile = "DuckTour/src/textdata/Credentials.txt";
 	public String userInfofile = "DuckTour/src/textdata/UserInfo.txt";
 	public String tourInfofile = "DuckTour/src/textdata/TourInfo.txt";
+	public String tourRecfile = "DuckTour/src/textdata/TourRecords.txt";
+	public String paymntRecfile = "DuckTour/src/textdata/PaymentRecords.txt";
 	//public String credHeader = "Username:Password:PriorityLevel";
 	public String userLevel;
 	
@@ -63,6 +65,7 @@ public class Verification {
     	return result;
     }
     
+    //check if tourname has been used
     public boolean checktourname (String tourname) {
     	boolean result = false;
     	Openfile Filereader = new Openfile();
@@ -82,6 +85,7 @@ public class Verification {
     	return result;
     }
     
+    //delete user function
     public void deleteUser (String username)
     {
     	Openfile Filereader = new Openfile();
@@ -97,7 +101,8 @@ public class Verification {
 		}
         Filereader.writeAL(credfile, tmp);
     }
-
+    
+    //modify user function
     public void modUser (String username, String userlevel)
     {
     	Openfile Filereader = new Openfile();
@@ -117,6 +122,7 @@ public class Verification {
         Filereader.writeAL(credfile, credAL);
     }
     
+    //delete tour function for local guide while checking their usernames
     public boolean deletetour(String username, String tname) 
     {
     	boolean result = false;
@@ -144,6 +150,7 @@ public class Verification {
     	return result;
     }
     
+    //overloading the deletetour function for admin to delete 
     public boolean deletetour(String tname) 
     {
     	boolean result = false;
@@ -197,6 +204,7 @@ public class Verification {
     	return tmp;
     }
     
+    //write the updates to the file for updates
     public void updateTour(String tname, String data)
     {
     	Openfile Filereader = new Openfile();
@@ -209,7 +217,7 @@ public class Verification {
         	if(tourdata.length > 1 )
         	{
 	        	if (tname.equals(tourdata[1])){
-	        		System.out.println(i+"here ");
+	        		//System.out.println(i+"here ");
 	        		tourAL.set(i, data);
 				}
         	}
@@ -218,6 +226,7 @@ public class Verification {
         Filereader.writeAL(tourInfofile, tourAL);
     }
     
+    //check the available username for rating
     public String checkOtherUname(String username)
     {
     	String result = "";
@@ -237,6 +246,7 @@ public class Verification {
     	return result;
     }
     
+    //function to write the update to the rating
     public void rateUser(String olddata, String newdata)
     {
     	Openfile Filereader = new Openfile();
@@ -255,6 +265,92 @@ public class Verification {
         Filereader.writeAL(credfile, credAL);
     }
     
+    //adding new string to the records file
+    public void updateRecords(String data)
+    {
+    	Openfile Filereader = new Openfile();
+    	Filereader.writeString(tourRecfile, data);
+        //ArrayList<String> credAL = Filereader.read(credfile);
+    }
+    
+    //pull tour records out
+    public ArrayList<String> PullAllRecords()
+    {
+    	Openfile Filereader = new Openfile();
+        ArrayList<String> recordAL = Filereader.read(tourRecfile);
+        ArrayList<String> tmp = new ArrayList<String>();
+        
+        //strip away the first line
+        for (int i = 1; i < recordAL.size(); i++)
+        {
+        	tmp.add(recordAL.get(i));
+        }
+        return tmp;
+    }
+    
+    //retrieves all data specific to the tour
+    public ArrayList<String> RecordCheck(String tname)
+    {
+    	Openfile Filereader = new Openfile();
+        ArrayList<String> tourAL = Filereader.read(tourRecfile);
+        ArrayList<String> tmp = new ArrayList<String>();
+        
+        for (String fdata : tourAL)
+        {
+			String[] tourdata = fdata.split(", ");
+			if(tourdata.length > 1 )
+	        	{
+				if (tname.equals(tourdata[2]))
+				{
+					tmp.add(fdata);
+				}
+        	}
+
+		}
+    	return tmp;
+    }
+    
+    //pull payment record
+    public ArrayList<String> pullPaymentRecords(String username, String tname)
+    {
+    	Openfile Filereader = new Openfile();
+    	ArrayList<String> tourAL = Filereader.read(tourInfofile);
+        ArrayList<String> recordAL = Filereader.read(paymntRecfile);
+        ArrayList<String> tmp = new ArrayList<String>();
+        boolean check = false;
+        
+        for (String tdata : tourAL)
+        {
+        	String[] tourdata = tdata.split(",");
+			if(tourdata.length > 1 )
+	        	{
+				if (username.equals(tourdata[0]) && tname.equals(tourdata[1]))
+				{
+					check = true;
+					break;
+				}
+        	}
+        }
+        
+        if (check)
+        {
+        	for (String paymntdata : recordAL)
+            {
+    			String[] pdata = paymntdata.split(", ");
+    			if(pdata.length > 1 )
+    	        	{
+    				if (tname.equals(pdata[1]))
+    				{
+    					tmp.add(paymntdata);
+    				}
+            	}
+
+    		}
+        }
+        
+        return tmp;
+    }
+    
     public String getCred()
     {
     	return credfile;
@@ -270,4 +366,8 @@ public class Verification {
     	return tourInfofile;
     }
     
+    public String recInfo()
+    {
+    	return tourRecfile;
+    }
 }

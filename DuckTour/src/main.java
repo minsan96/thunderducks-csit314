@@ -12,13 +12,13 @@ public class main {
 		if (userlevel.equals("0"))
 		{
 			AdminMain admMain = new AdminMain();
-			admMain.showAdminMain();
-			System.out.println("User Level " + userlevel);
+			admMain.showAdminMain(username);
+			//System.out.println("User Level " + userlevel);
 		}
 		
 		if (userlevel.equals("1"))
 		{
-			System.out.println("User Level " + userlevel);
+			//System.out.println("User Level " + userlevel);
 			LocalMain locMain = new LocalMain();
 			locMain.showMain(username);
 			
@@ -26,7 +26,7 @@ public class main {
 		
 		if (userlevel.equals("2"))
 		{
-			System.out.println("User Level " + userlevel);
+			//System.out.println("User Level " + userlevel);
 		}
 		
 	}

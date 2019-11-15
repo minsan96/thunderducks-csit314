@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class AdminMain {
+	String loggedinUser = "";
+	String toWrite = "";
 	
 	public void createUser()
 	{
@@ -166,6 +168,8 @@ public class AdminMain {
 	    	if (result)
 	    	{
 		    	JOptionPane.showMessageDialog(null, "Tour successfully deleted!");
+		    	toWrite = loggedinUser + ", has deleted the tour, " + tname;
+				verify.updateRecords(toWrite);
 		    }
 		    else 
 		    {
@@ -176,12 +180,128 @@ public class AdminMain {
 	    
 	}
 	
-	public void showAdminMain ()
+	public void viewTourRec() 
 	{
+	    JPanel oripanel = new JPanel(new BorderLayout(5, 5));
+	    oripanel.setPreferredSize(new Dimension(300, 40));
+	    
+	    JPanel leftlabel = new JPanel(new GridLayout(0, 1, 2, 2));
+	    leftlabel.add(new JLabel("          ", SwingConstants.RIGHT));
+	    leftlabel.add(new JLabel("          ", SwingConstants.RIGHT));
+	    oripanel.add(leftlabel, BorderLayout.WEST);
+	    JPanel rightlabel = new JPanel(new GridLayout(0, 1, 2, 2));
+	    rightlabel.add(new JLabel("          ", SwingConstants.RIGHT));
+	    rightlabel.add(new JLabel("          ", SwingConstants.RIGHT));
+	    oripanel.add(rightlabel, BorderLayout.EAST);
+	    
+	    JPanel viewMenu = new JPanel(new GridLayout(0, 1, 2, 2));
+	    JButton viewAllbtn = new JButton("View all records");
+	    viewMenu.add(viewAllbtn);
+	    JButton viewSpecificbtn = new JButton("View specific tour record");
+	    viewMenu.add(viewSpecificbtn);
+	    
+	    oripanel.add(viewMenu, BorderLayout.CENTER);
+	    Verification verify = new Verification();
+	    
+	    viewAllbtn.addActionListener(new ActionListener()
+	    {
+	        public void actionPerformed(ActionEvent e) 
+	        {
+	        	JPanel viewallpanel = new JPanel(new BorderLayout(5, 5));
+	        	viewallpanel.setPreferredSize(new Dimension(500, 500));
+	    	    
+	    	    JPanel viewallLabel = new JPanel(new GridLayout(0, 1, 2, 2));
+	    	    viewallLabel.add(new JLabel("Record data:", SwingConstants.RIGHT));
+	    	    viewallpanel.add(viewallLabel, BorderLayout.WEST);
+	    	    
+	    	    JPanel mainAllLabel = new JPanel(new GridLayout(0, 1, 2, 2));
+	    	    JTextArea DisplayRecord = new JTextArea();
+	    	    
+	    	    //pull records out
+	    	    ArrayList<String> allrecords = verify.PullAllRecords();
+	    	    for (String tmpdata : allrecords)
+	    	    {
+	    	    	DisplayRecord.append(tmpdata+"\n");
+	    	    }
+	    	    DisplayRecord.setEditable(false);
+
+	    	    mainAllLabel.add(new JScrollPane(DisplayRecord), BorderLayout.PAGE_START);
+	    	    viewallpanel.add(mainAllLabel, BorderLayout.CENTER);
+	    	    JOptionPane.showOptionDialog(null, viewallpanel, "View All Records", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null);
+	        }
+	    });
+	    
+	    viewSpecificbtn.addActionListener(new ActionListener()
+	    {
+	        public void actionPerformed(ActionEvent e) 
+	        {
+	        	JPanel viewSpanel = new JPanel(new BorderLayout(5, 5));
+	        	viewSpanel.setPreferredSize(new Dimension(300, 20));
+	    	    
+	    	    JPanel viewSLabel = new JPanel(new GridLayout(0, 1, 2, 2));
+	    	    viewSLabel.add(new JLabel("Search for tour", SwingConstants.RIGHT));
+	    	    viewSpanel.add(viewSLabel, BorderLayout.WEST);
+	    	    
+	    	    JPanel mainSpanel = new JPanel(new GridLayout(0, 1, 2, 2));
+	    	    JTextField tourname = new JTextField();
+	    	    mainSpanel.add(tourname);
+	    	    viewSpanel.add(mainSpanel, BorderLayout.CENTER);
+	    	    int check = JOptionPane.showConfirmDialog(null, viewSpanel, "Search for tour record", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+	    	    
+	    	    if (check == JOptionPane.OK_OPTION)
+	    	    {
+	    	    	String tname = tourname.getText();
+	    	    	if (!tname.equals("") || !tname.isEmpty())
+	    	    	{
+	    	    		 ArrayList<String> tourAL = verify.RecordCheck(tname);
+	    	    		 
+	    	    		 if (!tourAL.isEmpty())
+	    	    		 {
+	    	    			JPanel viewallpanel = new JPanel(new BorderLayout(5, 5));
+	    	 	        	viewallpanel.setPreferredSize(new Dimension(500, 500));
+	    	 	    	    
+	    	 	    	    JPanel viewallLabel = new JPanel(new GridLayout(0, 1, 2, 2));
+	    	 	    	    viewallLabel.add(new JLabel("Record data:", SwingConstants.RIGHT));
+	    	 	    	    viewallpanel.add(viewallLabel, BorderLayout.WEST);
+	    	 	    	    
+	    	 	    	    JPanel mainAllLabel = new JPanel(new GridLayout(0, 1, 2, 2));
+	    	 	    	    JTextArea DisplayRecord = new JTextArea();
+	    	 	    	    
+	    	 	    	    //pull records out
+	    	 	    	    for (String tmpdata : tourAL)
+	    	 	    	    {
+	    	 	    	    	DisplayRecord.append(tmpdata+"\n");
+	    	 	    	    }
+	    	 	    	    DisplayRecord.setEditable(false);
+	    	 	    	    
+	    	 	    	    mainAllLabel.add(new JScrollPane(DisplayRecord), BorderLayout.PAGE_START);
+	    	 	    	    viewallpanel.add(mainAllLabel, BorderLayout.CENTER);
+	    	 	    	    JOptionPane.showOptionDialog(null, viewallpanel, "View specific records", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null);
+	    	    		 }
+	    	    		 else 
+	    	    		 {
+	    	    			 JOptionPane.showMessageDialog(null, "Invalid tour name!");
+	    	    		 }
+	    	    	}
+	    	    	else 
+	    	    	{
+	    	    		JOptionPane.showMessageDialog(null, "Tour name must not be empty!");
+	    	    	}
+	    	    }
+	        
+	        }
+	    });
+	    JOptionPane.showOptionDialog(null, oripanel, "View Tour Records", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null);
+	}
+	
+	public void showAdminMain (String loginname)
+	{
+		loggedinUser = loginname;
 	    JPanel panel = new JPanel(new BorderLayout(5, 5));
-	    panel.setPreferredSize(new Dimension(300, 70));
+	    panel.setPreferredSize(new Dimension(300, 100));
 
 	    JPanel leftlabel = new JPanel(new GridLayout(0, 1, 2, 2));
+	    leftlabel.add(new JLabel("          ", SwingConstants.RIGHT));
 	    leftlabel.add(new JLabel("          ", SwingConstants.RIGHT));
 	    leftlabel.add(new JLabel("          ", SwingConstants.RIGHT));
 	    leftlabel.add(new JLabel("          ", SwingConstants.RIGHT));
@@ -189,6 +309,7 @@ public class AdminMain {
 	    panel.add(leftlabel, BorderLayout.WEST);
 	    
 	    JPanel rightlabel = new JPanel(new GridLayout(0, 1, 2, 2));
+	    rightlabel.add(new JLabel("          ", SwingConstants.RIGHT));
 	    rightlabel.add(new JLabel("          ", SwingConstants.RIGHT));
 	    rightlabel.add(new JLabel("          ", SwingConstants.RIGHT));
 	    rightlabel.add(new JLabel("          ", SwingConstants.RIGHT));
@@ -205,6 +326,8 @@ public class AdminMain {
 	    adminMenu.add(moduserbtn);
 	    JButton deltourbtn = new JButton("Delete Tour");
 	    adminMenu.add(deltourbtn);
+	    JButton viewrecbtn = new JButton("View Tour Modification Record");
+	    adminMenu.add(viewrecbtn);
 	    
 	    createuserbtn.addActionListener(new ActionListener()
 	    {
@@ -235,6 +358,15 @@ public class AdminMain {
 	        public void actionPerformed(ActionEvent e) 
 	        {
 	        	delTour();
+	        }
+	    });
+	    
+	    viewrecbtn.addActionListener(new ActionListener()
+	    {
+	        public void actionPerformed(ActionEvent e) 
+	        {
+	        	viewTourRec();
+	        	//delTour();
 	        }
 	    });
 	    

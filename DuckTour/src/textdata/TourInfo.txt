@@ -1,2 +1,3 @@
 LocalGuideUsername:Tourname:Country:Location:TourDescription:Date:Time:Price
 b1,bsadasdas,b1,b1,b1,b1,b1,asdasd
+b1,b1 second,sad,asd,asd,asd,ads,asd

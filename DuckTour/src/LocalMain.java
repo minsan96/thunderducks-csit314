@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 public class LocalMain {
 
 	String loggedinUser = "";
+	String toWrite = "";
 	
 	public void createTour()
 	{
@@ -72,6 +73,8 @@ public class LocalMain {
 			    Openfile fileOperator = new Openfile ();
 			    fileOperator.writeString(verify.getTInfo(), writeData);
 			    JOptionPane.showMessageDialog(null, "Tour successfully created");
+			    toWrite = loggedinUser + ", has created the tour, " + tname;
+			    verify.updateRecords(toWrite);
 		    }
 		    else 
 		    {
@@ -107,6 +110,8 @@ public class LocalMain {
 	    	if (result)
 	    	{
 		    	JOptionPane.showMessageDialog(null, "Tour successfully deleted!");
+		    	toWrite = loggedinUser + ", has deleted the tour, " + tname;
+				verify.updateRecords(toWrite);
 		    }
 		    else 
 		    {
@@ -186,6 +191,8 @@ public class LocalMain {
 		    	    
 		    		verify.updateTour(tname, writeData);
 		    	    JOptionPane.showMessageDialog(null, "Tour successfully updated!");
+		    	    toWrite = loggedinUser + ", has updated the tour, " + tname;
+					verify.updateRecords(toWrite);
 	    	    }
 		    }
 		    else 
@@ -198,7 +205,61 @@ public class LocalMain {
 	
 	public void viewPayment() 
 	{
-		
+    	JPanel searchPaymentpanel = new JPanel(new BorderLayout(5, 5));
+    	searchPaymentpanel.setPreferredSize(new Dimension(300, 20));
+	    
+	    JPanel searchPaymntLabel = new JPanel(new GridLayout(0, 1, 2, 2));
+	    searchPaymntLabel.add(new JLabel("Search for tour", SwingConstants.RIGHT));
+	    searchPaymentpanel.add(searchPaymntLabel, BorderLayout.WEST);
+	    
+	    JPanel searchPaymnttxtfield = new JPanel(new GridLayout(0, 1, 2, 2));
+	    JTextField tourname = new JTextField();
+	    searchPaymnttxtfield.add(tourname);
+	    searchPaymentpanel.add(searchPaymnttxtfield, BorderLayout.CENTER);
+	    int check = JOptionPane.showConfirmDialog(null, searchPaymentpanel, "Search for tour payment", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+	    
+	    Verification verify = new Verification();
+	    
+	    if (check == JOptionPane.OK_OPTION)
+	    {
+	    	String tname = tourname.getText();
+	    	if (!tname.equals("") || !tname.isEmpty())
+	    	{
+	    		 ArrayList<String> tourAL = verify.pullPaymentRecords(loggedinUser, tname);
+	    		 
+	    		 if (!tourAL.isEmpty())
+	    		 {
+	    			JPanel viewallpanel = new JPanel(new BorderLayout(5, 5));
+	 	        	viewallpanel.setPreferredSize(new Dimension(500, 500));
+	 	    	    
+	 	    	    JPanel viewallLabel = new JPanel(new GridLayout(0, 1, 2, 2));
+	 	    	    viewallLabel.add(new JLabel("Record data:", SwingConstants.RIGHT));
+	 	    	    viewallpanel.add(viewallLabel, BorderLayout.WEST);
+	 	    	    
+	 	    	    JPanel mainAllLabel = new JPanel(new GridLayout(0, 1, 2, 2));
+	 	    	    JTextArea DisplayRecord = new JTextArea();
+	 	    	    
+	 	    	    //pull records out
+	 	    	    for (String tmpdata : tourAL)
+	 	    	    {
+	 	    	    	DisplayRecord.append(tmpdata+"\n");
+	 	    	    }
+	 	    	    DisplayRecord.setEditable(false);
+	 	    	    
+	 	    	    mainAllLabel.add(new JScrollPane(DisplayRecord), BorderLayout.PAGE_START);
+	 	    	    viewallpanel.add(mainAllLabel, BorderLayout.CENTER);
+	 	    	    JOptionPane.showOptionDialog(null, viewallpanel, "View specific records", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null);
+	    		 }
+	    		 else 
+	    		 {
+	    			 JOptionPane.showMessageDialog(null, "You do not have the right! / Invalid tour name!");
+	    		 }
+	    	}
+	    	else 
+	    	{
+	    		JOptionPane.showMessageDialog(null, "Tour name must not be empty!");
+	    	}
+	    }
 	}
 	
 	public void rateOthers()
@@ -245,8 +306,6 @@ public class LocalMain {
 	    		    //newlabel.add(new JLabel("1 is the worst rating and 5 is the best rating", SwingConstants.RIGHT));
 	    		    newpanel.add(newlabel, BorderLayout.WEST);
 	    		    
-	    		    
-	    		    
 	    		    JPanel OtherUserInfoMenu = new JPanel(new GridLayout(0, 1, 2, 2));
 	    		    JTextField OTHusername = new JTextField(userdata[0]);
 	    		    OTHusername.setEditable(false);
@@ -273,9 +332,11 @@ public class LocalMain {
 	    		    {
 	    		    	if (!nrating.isEmpty() || !nrating.equals(""))
 	    		    	{
-		    		    	float currRating = Float.valueOf(userdata[3]);
-		    		    	float nRating = Float.valueOf(nrating);
-		    		    	float avgRating = (currRating + nRating) / 2;
+		    		    	double currRating = Double.valueOf(userdata[3]);
+		    		    	//currRating = Math.round(currRating * 10 )/ 10.0;
+		    		    	double nRating = Float.valueOf(nrating);
+		    		    	double avgRating = (currRating + nRating) / 2;
+		    		    	avgRating = Math.round(avgRating * 10 )/ 10.0;
 		    		    	
 		    		    	String writedata = userdata[0] + "," + userdata[1] + "," + userdata[2] + "," + String.valueOf(avgRating);
 		    		    	
@@ -360,7 +421,7 @@ public class LocalMain {
 	    {
 	        public void actionPerformed(ActionEvent e) 
 	        {
-	        	//modUser();
+	        	viewPayment();
 	        }
 	    });
 	    

@@ -1,0 +1,8 @@
+Username:has performed action:tourname
+b1, has created the tour, b1 second
+b1, has created the tour, b1 3rd
+b1, has created the tour, b4th
+b1, has deleted the tour, b1 3rd
+b1, has deleted the tour, b1 second
+adm2, has deleted the tour, b1 new
+b1, has created the tour, b1 second
