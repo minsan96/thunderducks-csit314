@@ -1,4 +1,6 @@
 Username: has paid $:price: for the tour, :tourname
-b1 has paid $450 for the tour, b1 second
-v2 has paid $450 for the tour, b1 second
-v2 has paid $450 for the tour, b3 second
+b1, has paid $450 for the tour, b1 second
+v2, has paid $450 for the tour, b1 second
+v2, has paid $450 for the tour, b3 second
+n2, has paid $450 for the tour, b1 second
+n2, has paid $478 for the tour, b4th

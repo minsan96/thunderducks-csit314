@@ -321,7 +321,7 @@ public class Verification {
         
         for (String tdata : tourAL)
         {
-        	String[] tourdata = tdata.split(",");
+        	String[] tourdata = tdata.split(", ");
 			if(tourdata.length > 1 )
 	        	{
 				if (username.equals(tourdata[0]) && tname.equals(tourdata[1]))
@@ -339,7 +339,7 @@ public class Verification {
     			String[] pdata = paymntdata.split(", ");
     			if(pdata.length > 1 )
     	        	{
-    				if (tname.equals(pdata[1]))
+    				if (tname.equals(pdata[2]))
     				{
     					tmp.add(paymntdata);
     				}
@@ -349,6 +349,45 @@ public class Verification {
         }
         
         return tmp;
+    }
+    
+    public ArrayList<String> pullSignedUpTour(String username)
+    {
+    	Openfile Filereader = new Openfile();
+        ArrayList<String> recordAL = Filereader.read(paymntRecfile);
+        ArrayList<String> tmp = new ArrayList<String>();
+
+    	for (String paymntdata : recordAL)
+        {
+			String[] pdata = paymntdata.split(", ");
+			if(pdata.length > 1 )
+        	{
+				if (username.equals(pdata[0]))
+				{
+					tmp.add(paymntdata);
+				}
+        	}
+		}
+        return tmp;
+    }
+    
+    public String pullMyInfo(String username)
+    {
+    	String result = "";
+    	Openfile Filereader = new Openfile();
+        ArrayList<String> tourAL = Filereader.read(userInfofile);
+        
+        for (String fdata : tourAL)
+        {
+			String[] creddata = fdata.split(",");
+			
+			if (username.equals(creddata[0]))
+			{
+				result = fdata;
+			}
+
+		}
+    	return result;
     }
     
     public String getCred()

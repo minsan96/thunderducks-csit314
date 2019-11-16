@@ -4,3 +4,5 @@ bob,bob,2,M,,,
 add,adss,2,F,,,
 asd,as,2,F,,,
 r2,rd,2,M,,,
+n1,n,2,M,asd,asds,dsadas
+n2,n,2,M,DOB,email addr,contact no

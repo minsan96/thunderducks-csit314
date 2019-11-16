@@ -333,7 +333,6 @@ public class LocalMain {
 	    		    	if (!nrating.isEmpty() || !nrating.equals(""))
 	    		    	{
 		    		    	double currRating = Double.valueOf(userdata[3]);
-		    		    	//currRating = Math.round(currRating * 10 )/ 10.0;
 		    		    	double nRating = Float.valueOf(nrating);
 		    		    	double avgRating = (currRating + nRating) / 2;
 		    		    	avgRating = Math.round(avgRating * 10 )/ 10.0;

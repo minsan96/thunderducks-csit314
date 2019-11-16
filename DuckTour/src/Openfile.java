@@ -27,10 +27,7 @@ public class Openfile {
 			PrintWriter writer = new PrintWriter(oFile, "UTF-8");
 			Iterator i = filedata.iterator();
 			while (i.hasNext()) {
-				//String tmp = i.next().toString();
-				//if (!tmp.isEmpty()) {
 				writer.println(i.next());
-				//}
 		}
 		writer.close();
 		} catch (Exception e) {
