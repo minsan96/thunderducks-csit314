@@ -26,7 +26,8 @@ public class main {
 		
 		if (userlevel.equals("2"))
 		{
-			//System.out.println("User Level " + userlevel);
+			TouristMain tourstMain = new TouristMain();
+			tourstMain.showTouristMain(username);
 		}
 		
 	}

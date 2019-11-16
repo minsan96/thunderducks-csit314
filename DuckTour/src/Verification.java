@@ -370,4 +370,23 @@ public class Verification {
     {
     	return tourRecfile;
     }
+    
+    //pull tour info
+    public ArrayList<String> pullTourInfo()
+    {
+    	Openfile Filereader = new Openfile();
+    	ArrayList<String> tourAL = Filereader.read(tourInfofile);
+        ArrayList<String> tmp = new ArrayList<String>();
+        
+        for (String tdata : tourAL)
+        {
+        	String[] tourdata = tdata.split(",");
+			if(tourdata.length > 1 )
+	        {
+				tmp.add(tdata);
+        	}
+        }
+        
+        return tmp;
+    }
 }
