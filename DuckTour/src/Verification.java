@@ -70,17 +70,23 @@ public class Verification {
     	boolean result = false;
     	Openfile Filereader = new Openfile();
         ArrayList<String> tourAL = Filereader.read(tourInfofile);
+        int count = 0;
         
         for (String fdata : tourAL)
         {
 			String[] tourdata = fdata.split(",");
-			if (tourname.equals(tourdata[0])){
+			if(count == 0) {
+				count++;
+				continue;
+			}
+			if (tourname.equals(tourdata[1])){
 				result = true;
 				break;
 			}
 			else {
 				result = false;
 			}
+			count++;
 		}
     	return result;
     }
@@ -390,6 +396,29 @@ public class Verification {
     	return result;
     }
     
+    public String pullTourInfo(String tourname)
+    {
+    	String result = "";
+    	Openfile Filereader = new Openfile();
+        ArrayList<String> tourAL = Filereader.read(tourInfofile);
+        int count = 0;
+        for (String fdata : tourAL)
+        {
+			String[] creddata = fdata.split(",");
+			if(count == 0) {
+				count++;
+				continue;
+			}			
+			if (tourname.equals(creddata[1]))
+			{
+				result = fdata;
+				break;
+			}
+			count++;
+		}
+    	return result;
+    }
+    
     public String getCred()
     {
     	return credfile;
@@ -408,6 +437,11 @@ public class Verification {
     public String recInfo()
     {
     	return tourRecfile;
+    }
+    
+    public String paymntRecInfo()
+    {
+    	return paymntRecfile;
     }
     
     //pull tour info

@@ -1,3 +1,13 @@
 LocalGuideUsername:Tourname:Country:Location:TourDescription:Date:Time:Price
 b1,bsadasdas,b1,b1,b1,b1,b1,asdasd
 b1,b1 second,sad,asd,asd,asd,ads,asd
+fkopecka0,Francisca's Baldone Tour,Latvia,1045 Texas Point,nec dui luctus rutrum nulla tellus in sagittis dui vel nisl duis ac nibh,04-05-2019,1731H,$774.08 
+cspens1,Cilka's Moscow Tour,Russia,60 Anzinger Drive,tempus vel pede morbi porttitor lorem id ligula suspendisse ornare,06-23-2019,2252H,$359.21 
+lmatthisson2,Liesa's Thomassique Tour,Haiti,424 Pankratz Center,magnis dis parturient montes nascetur ridiculus mus vivamus vestibulum sagittis,11-04-2019,1240H,$738.86 
+ilawrey3,Imogene's Savannah Tour,United States,1 Eagan Road,cubilia curae mauris viverra diam vitae quam suspendisse potenti nullam porttitor lacus at turpis donec posuere metus vitae,08-29-2019,0514H,$405.51 
+priccioppo4,Phylis's Ochojno Tour,Poland,0189 Maple Pass,quam pede lobortis ligula sit amet eleifend pede libero quis orci nullam molestie nibh,05-13-2019,0503H,$211.48 
+aabethell5,Ashlen's Lindome Tour,Sweden,37493 Sunfield Parkway,mattis egestas metus aenean fermentum donec ut mauris eget massa tempor convallis nulla neque libero convallis,10-09-2019,1142H,$41.44 
+hfossitt6,Herve's Banjing Tour,China,9 Roxbury Place,sem duis aliquam convallis nunc proin at turpis a pede posuere nonummy integer non velit donec diam neque vestibulum eget,07-18-2019,1311H,$200.89 
+rgrocock7,Robbie's Pergamino Tour,Argentina,36687 Alpine Drive,fermentum donec ut mauris eget massa tempor convallis nulla neque,12-06-2018,0630H,$962.49 
+anevin8,Avie,Slavuta's Ukraine Tour,83626 Gerald Junction,egestas metus aenean fermentum donec ut mauris eget massa tempor convallis nulla neque libero convallis eget eleifend luctus ultricies eu,09-19-2019,0736H,$501.69 
+pjermin9,Priscella's Jonkowo Tour,Poland,81266 Marquette Way,nulla sed vel enim sit amet nunc viverra dapibus nulla suscipit ligula in,10-20-2019,2103H,$136.95  

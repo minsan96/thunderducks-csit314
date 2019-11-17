@@ -4,3 +4,5 @@ v2, has paid $450 for the tour, b1 second
 v2, has paid $450 for the tour, b3 second
 n2, has paid $450 for the tour, b1 second
 n2, has paid $478 for the tour, b4th
+c1, has paid $774.08 for the tour, Francisca's Baldone Tour
+c1, has paid $359.21  for the tour, Cilka's Moscow Tour

@@ -1,21 +1,39 @@
 import java.io.*;
 import javax.swing.*;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.*;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.AdjustmentListener;
 
 public class TouristMain {
 	String loggedinUser = "";
 	ArrayList<String> tourlist = new ArrayList<String>();
+	List<String> countries = new ArrayList<String>();
 	
 	public void showTouristMain (String loginname)
 	{
 		Verification verify = new Verification();
 		tourlist = verify.pullTourInfo();
+		
+		for (String tdata : tourlist)
+        {
+			String[] tourdata = tdata.split(",");
+			if(tourdata.length > 1 )
+	        {
+				String tcntry = tourdata[2];
+				if(countries.size() == 0) {
+					countries.add(tcntry);
+				}
+				else if(!countries.contains(tcntry)) {
+					countries.add(tcntry);
+				}
+	        }
+        }
 		
 		loggedinUser = loginname;
 	    JPanel panel = new JPanel(new BorderLayout(5, 5));
@@ -41,6 +59,8 @@ public class TouristMain {
 	    JPanel adminMenu = new JPanel(new GridLayout(0, 1, 2, 2));
 	    JButton viewtourbtn = new JButton("View Tours");
 	    adminMenu.add(viewtourbtn);
+	    JButton signupbtn = new JButton("Sign Up Tour");
+	    adminMenu.add(signupbtn);
 	    JButton myprofilebtn = new JButton("View my profile");
 	    adminMenu.add(myprofilebtn);
 	    JButton ratebtn = new JButton("Rate other Tourists / Guide");
@@ -53,7 +73,13 @@ public class TouristMain {
 	        	viewTours();
 	        }
 	    });
-	    
+	    signupbtn.addActionListener(new ActionListener()
+	    {
+	        public void actionPerformed(ActionEvent e) 
+	        {
+	        	signupTour();
+	        }
+	    });
 	    myprofilebtn.addActionListener(new ActionListener()
 	    {
 	        public void actionPerformed(ActionEvent e) 
@@ -71,29 +97,62 @@ public class TouristMain {
 	    });
 	    
 	    panel.add(adminMenu, BorderLayout.CENTER);
-	    int check = JOptionPane.showOptionDialog(null, panel, "Admin", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null);
+	    JOptionPane.showOptionDialog(null, panel, "Tourists", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null);
 
 	}
 	
 	public void viewTours() 
 	{
+		JPanel main = new JPanel();
+		Verification verify = new Verification();
 		JPanel panel = new JPanel(new BorderLayout(5, 5));
 	    panel.setPreferredSize(new Dimension(600, 300));
-	    
-	    JPanel leftlabel = new JPanel(new GridBagLayout());
-	    leftlabel.add(new JLabel("          ", SwingConstants.RIGHT));
-	    panel.add(leftlabel, BorderLayout.WEST);
-	    
-	    JPanel rightlabel = new JPanel(new GridBagLayout());
-	    rightlabel.add(new JLabel("          ", SwingConstants.RIGHT));
-	    panel.add(rightlabel, BorderLayout.EAST);
-	    
-	    //code start
-	    JPanel adminMenu = new JPanel(new GridBagLayout());
-	    JButton viewtourbtn = new JButton("View Tours");
-	    adminMenu.add(viewtourbtn);
-	    panel.add(adminMenu, BorderLayout.CENTER);
-	    JOptionPane.showOptionDialog(null, panel, "View All Records", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null);
+	    /*JComboBox<String> cb = new JComboBox<String>();
+	    cb.setMaximumSize( cb.getPreferredSize() );
+	    cb.setModel(new DefaultComboBoxModel(countries.toArray()));
+        cb.setVisible(true);
+	    cb.addActionListener (new ActionListener () {
+	        public void actionPerformed(ActionEvent e) {
+	            String selectedcntry = String.valueOf(cb.getSelectedItem());
+	        	for (Iterator<String> it=tourlist.iterator(); it.hasNext();) {
+	        		tourlist = verify.pullTourInfo();
+	        	    if (!it.next().contains(selectedcntry)) {
+	        	        it.remove(); // NOTE: Iterator's remove method, not ArrayList's, is used.
+	        	    }
+	        	}
+	        	viewTours();
+	        }
+	    });*/
+		JPanel list = new JPanel();
+		list.setLayout(new BoxLayout(list, BoxLayout.PAGE_AXIS));
+        //list.add(cb, BorderLayout.CENTER);
+        
+        for (String tdata : tourlist)
+        {
+        	String[] tourdata = tdata.split(",");
+			if(tourdata.length > 1 )
+	        {
+				JPanel label = new JPanel();
+				label.setLayout(new BoxLayout(label, BoxLayout.PAGE_AXIS));
+				String tourname = tourdata[1];
+				String country = tourdata[2];
+				String location = tourdata[3];
+				String tourdescription = tourdata[4];
+				String date = tourdata[5];
+				String time = tourdata[6];
+				String price = tourdata[7];
+				
+			    label.add(new JLabel("Tour Name: " + tourname, SwingConstants.LEFT));
+			    label.add(new JLabel("Country: " + country + "    Location: " + location, SwingConstants.LEFT));
+			    label.add(new JLabel("Tour Description: " + tourdescription, SwingConstants.LEFT));
+			    label.add(new JLabel("Date: " + date + "    Time: " + time, SwingConstants.LEFT));
+			    label.add(new JLabel("<html><div>Price $: " + price + "</div><br/></html>", SwingConstants.LEFT));
+			    label.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.BLACK));
+			    list.add(label, BorderLayout.CENTER);
+        	}
+        }
+        panel.add(new JScrollPane(list));        
+	    JOptionPane.showOptionDialog(null, panel, "View Tours", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null);
 	}
 	
 	public void myprofile() 
@@ -275,5 +334,67 @@ public class TouristMain {
 	    		}
 	    	}
 	    }
+	}
+	
+	public void signupTour()
+	{
+		JPanel panel = new JPanel(new BorderLayout(5, 5));
+	    panel.setPreferredSize(new Dimension(300, 150));
+	    
+	    JPanel label = new JPanel(new GridLayout(0, 1, 2, 2));
+	    label.add(new JLabel("Tour Name", SwingConstants.RIGHT));
+	    label.add(new JLabel("Credit Card No.", SwingConstants.RIGHT));
+	    label.add(new JLabel("Expiry (MM/YY)", SwingConstants.RIGHT));
+	    label.add(new JLabel("CVV", SwingConstants.RIGHT));
+	    label.add(new JLabel("Name", SwingConstants.RIGHT));
+	    panel.add(label, BorderLayout.WEST);
+	    
+	    JPanel createTourMenu = new JPanel(new GridLayout(0, 1, 2, 2));
+	    JTextField tourname = new JTextField();
+	    createTourMenu.add(tourname);
+	    JTextField creditcard = new JTextField();
+	    createTourMenu.add(creditcard);
+	    JTextField expiry = new JTextField();
+	    createTourMenu.add(expiry);
+	    JTextField tcvv = new JTextField();
+	    createTourMenu.add(tcvv);
+	    JTextField txtname = new JTextField();
+	    createTourMenu.add(txtname);
+	    panel.add(createTourMenu, BorderLayout.CENTER);
+	    
+	    int check = JOptionPane.showConfirmDialog(null, panel, "Sign Up Tour", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+	    
+	    if (check == JOptionPane.OK_OPTION)
+	    {
+	    	String tname = tourname.getText();
+		    String ccard = creditcard.getText();
+		    String exp = expiry.getText();
+		    String cvv = tcvv.getText();
+		    String name = txtname.getText();
+			Verification verify = new Verification();
+		    String tinfo = verify.pullTourInfo(tname);
+		    String price = tinfo.split(",")[7];
+		    if (verify.checktourname(tname) && !tname.isEmpty())
+		    {
+				String writeData = loggedinUser + ", has paid " + price + " for the tour, " + tname;
+				
+				Openfile fileOperator = new Openfile ();
+				fileOperator.writeString(verify.paymntRecInfo(), writeData);
+				JOptionPane.showMessageDialog(null, "Tour successfully paid and signed up!");
+		    }
+		    else if(tname.isEmpty() || ccard.isEmpty() || exp.isEmpty() || cvv.isEmpty() || name.isEmpty())
+		    {
+		    	JOptionPane.showMessageDialog(null, "All the fields must not be blank!");
+		    }
+		    else if (verify.checktourname(tname) == false)
+		    {
+		    	JOptionPane.showMessageDialog(null, "Tour name is not found!");
+		    }
+		    else 
+		    {
+		    	System.out.println("Error in creating tour guide");
+		    }
+	    }
+
 	}
 }
