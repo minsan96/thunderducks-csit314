@@ -1,6 +1,4 @@
 LocalGuideUsername:Tourname:Country:Location:TourDescription:Date:Time:Price
-b1,bsadasdas,b1,b1,b1,b1,b1,asdasd
-b1,b1 second,sad,asd,asd,asd,ads,asd
 fkopecka0,Francisca's Baldone Tour,Latvia,1045 Texas Point,nec dui luctus rutrum nulla tellus in sagittis dui vel nisl duis ac nibh,04-05-2019,1731H,$774.08 
 cspens1,Cilka's Moscow Tour,Russia,60 Anzinger Drive,tempus vel pede morbi porttitor lorem id ligula suspendisse ornare,06-23-2019,2252H,$359.21 
 lmatthisson2,Liesa's Thomassique Tour,Haiti,424 Pankratz Center,magnis dis parturient montes nascetur ridiculus mus vivamus vestibulum sagittis,11-04-2019,1240H,$738.86 

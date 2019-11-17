@@ -12,7 +12,7 @@ import java.awt.event.AdjustmentListener;
 
 public class TouristMain {
 	String loggedinUser = "";
-	ArrayList<String> tourlist = new ArrayList<String>();
+	List<String> tourlist = new ArrayList<String>();
 	List<String> countries = new ArrayList<String>();
 	
 	public void showTouristMain (String loginname)
@@ -103,31 +103,48 @@ public class TouristMain {
 	
 	public void viewTours() 
 	{
-		JPanel main = new JPanel();
 		Verification verify = new Verification();
 		JPanel panel = new JPanel(new BorderLayout(5, 5));
-	    panel.setPreferredSize(new Dimension(600, 300));
-	    /*JComboBox<String> cb = new JComboBox<String>();
+	    panel.setPreferredSize(new Dimension(800, 300));
+	    JComboBox<String> cb = new JComboBox<String>();
+	    //cb.setPreferredSize(new Dimension(0, 25));
+	    cb.setPrototypeDisplayValue("XXXXXXXXXXXXXXXXXX");
 	    cb.setMaximumSize( cb.getPreferredSize() );
 	    cb.setModel(new DefaultComboBoxModel(countries.toArray()));
         cb.setVisible(true);
+		JPanel main = new JPanel();
+		main.setLayout(new BoxLayout(main, BoxLayout.PAGE_AXIS));		
+		JPanel list = new JPanel();
+		list.setLayout(new BoxLayout(list, BoxLayout.PAGE_AXIS));
 	    cb.addActionListener (new ActionListener () {
 	        public void actionPerformed(ActionEvent e) {
 	            String selectedcntry = String.valueOf(cb.getSelectedItem());
-	        	for (Iterator<String> it=tourlist.iterator(); it.hasNext();) {
+	            tourlist = verify.pullTourInfo(); 	
+	            tourlist.removeIf(b -> b.contains(selectedcntry) == false);
+	        	/*for (Iterator<String> it=tourlist.iterator(); it.hasNext();) {
 	        		tourlist = verify.pullTourInfo();
 	        	    if (!it.next().contains(selectedcntry)) {
 	        	        it.remove(); // NOTE: Iterator's remove method, not ArrayList's, is used.
 	        	    }
-	        	}
-	        	viewTours();
+	        	}*/
+	        	list.removeAll();
+	            //list.add(cb, BorderLayout.CENTER);
+	        	loadList(list);
+	        	list.revalidate();
+	        	list.repaint();
 	        }
-	    });*/
-		JPanel list = new JPanel();
-		list.setLayout(new BoxLayout(list, BoxLayout.PAGE_AXIS));
-        //list.add(cb, BorderLayout.CENTER);
-        
-        for (String tdata : tourlist)
+	    });
+	    main.add(cb, BorderLayout.NORTH);
+        loadList(list);
+
+	    main.add(list,BorderLayout.CENTER);
+	    panel.add(new JScrollPane(main));
+        //panel.add(new JScrollPane(list));        
+	    JOptionPane.showOptionDialog(null, panel, "View Tours", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null);
+	}
+	
+	public void loadList(JPanel list) {
+		for (String tdata : tourlist)
         {
         	String[] tourdata = tdata.split(",");
 			if(tourdata.length > 1 )
@@ -146,13 +163,11 @@ public class TouristMain {
 			    label.add(new JLabel("Country: " + country + "    Location: " + location, SwingConstants.LEFT));
 			    label.add(new JLabel("Tour Description: " + tourdescription, SwingConstants.LEFT));
 			    label.add(new JLabel("Date: " + date + "    Time: " + time, SwingConstants.LEFT));
-			    label.add(new JLabel("<html><div>Price $: " + price + "</div><br/></html>", SwingConstants.LEFT));
+			    label.add(new JLabel("<html><div>Price : " + price + "</div><br/></html>", SwingConstants.LEFT));
 			    label.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.BLACK));
 			    list.add(label, BorderLayout.CENTER);
         	}
         }
-        panel.add(new JScrollPane(list));        
-	    JOptionPane.showOptionDialog(null, panel, "View Tours", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null);
 	}
 	
 	public void myprofile() 
