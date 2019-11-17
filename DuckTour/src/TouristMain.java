@@ -162,7 +162,7 @@ public class TouristMain {
 			    label.add(new JLabel("Tour Name: " + tourname, SwingConstants.LEFT));
 			    label.add(new JLabel("Country: " + country + "    Location: " + location, SwingConstants.LEFT));
 			    label.add(new JLabel("Tour Description: " + tourdescription, SwingConstants.LEFT));
-			    label.add(new JLabel("Date: " + date + "    Time: " + time, SwingConstants.LEFT));
+			    label.add(new JLabel("Date (DD-MM-YYYY): " + date + "    Time (HHmmH, e.g 1930H): " + time, SwingConstants.LEFT));
 			    label.add(new JLabel("<html><div>Price : " + price + "</div><br/></html>", SwingConstants.LEFT));
 			    label.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.BLACK));
 			    list.add(label, BorderLayout.CENTER);
